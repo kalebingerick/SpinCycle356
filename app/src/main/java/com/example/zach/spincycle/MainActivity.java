@@ -1,5 +1,6 @@
 package com.example.zach.spincycle;
 
+import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private void setMenuButtons() {
         setMenuButton1();
         setMenuButton2();
+        setGPSButton();
     }
 
     private void setMenuButton1(){
@@ -42,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.second_page);
                 setBackButton();
                 playSound();
+            }
+        });
+    }
+
+    private void setGPSButton(){
+        Button gpsButton = (Button) findViewById(R.id.gps_button);
+        gpsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GPS_Display.class);
+                startActivity(intent);
             }
         });
     }

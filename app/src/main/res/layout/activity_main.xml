@@ -11,6 +11,19 @@
     tools:context="com.example.zach.spincycle.MainActivity">
 
     <Button
+        android:text="Test Button 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/test_button2"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/test_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
         android:id="@+id/test_button"
         android:text="Test Button"
         android:layout_height="50dp"
@@ -24,15 +37,16 @@
         </Button>
 
     <Button
-        android:text="Test Button 2"
+        android:text="GPS Display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/test_button2"
-        android:layout_marginTop="22dp"
-        android:layout_below="@+id/test_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:id="@+id/gps_button"
         style="@style/Widget.AppCompat.Button"
+        android:layout_below="@+id/test_button2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="27dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
