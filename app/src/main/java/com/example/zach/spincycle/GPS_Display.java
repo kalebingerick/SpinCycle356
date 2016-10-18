@@ -2,6 +2,7 @@ package com.example.zach.spincycle;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -57,6 +58,7 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps__display);
+        setButtons();
         lat = (TextView) findViewById(R.id.lat);
         lon = (TextView) findViewById(R.id.lon);
         status = (TextView) findViewById(R.id.status);
@@ -99,4 +101,48 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
             status.setText("GPS_PROVIDER is not enabled!");
         }
     }
+
+    private void setButtons() {
+        setStartButton();
+        setStopButton();
+        setMainMenuButton();
+    }
+
+    /**
+     * Store the user's movement
+     */
+    private void setStartButton() {
+        /**Pseudo-code
+        1) Get initial lat/long (try, catch (can't get vals --> tell user to go outside or something)
+        2) onLocationChanged, or at every x interval of time, store user's new locations
+         */
+    }
+
+    /**
+     * This is where we'll calculate the score
+     */
+    private void setStopButton() {
+        /**Pseudo-code
+         1) for lat/lon in lat/long array from setStartButton, compare score to ideal lat/long,
+         change score accordingly (e.g., start score @ 100, for every x std. dev., subtract (y /
+         number of lat/long values from user's movement) from score
+
+         TODO: How to get ideal endpoint? Once we have it, algorithm to get ideal midpoints (as a
+         function of the number of lat/long pairs collected while user was walking) should be simple.
+         Will compare each "ideal" midpoint to each actual midpoint to calculate std. dev./how much
+         to subtract from starting score (100).
+         */
+    }
+
+    private void setMainMenuButton() {
+        Button backButton = (Button) findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GPS_Display.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 }
