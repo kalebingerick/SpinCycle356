@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SpinCycle</string>
+    <string name="spin_count">0</string>
 </resources>

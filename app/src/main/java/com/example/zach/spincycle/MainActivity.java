@@ -11,6 +11,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    public final static String SPIN_COUNT = "spins";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.second_page);
-                setBackButton();
+                Intent intent = new Intent(MainActivity.this, Spin_Display.class);
+                intent.putExtra(SPIN_COUNT,10);
+                startActivity(intent);
+//                setBackButton();
                 playSound();
             }
         });
