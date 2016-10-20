@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.location.LocationProvider.OUT_OF_SERVICE;
 import static android.location.LocationProvider.TEMPORARILY_UNAVAILABLE;
@@ -24,16 +26,28 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
     private TextView lat;
     private TextView lon;
     private TextView status;
+    private Map<Double, Double> linePts = new HashMap<Double, Double>();
+    long startTime = 0;
     LocationManager lm;
 
     @Override
     public void onLocationChanged(Location location) {
+        if(startTime == 0)
+            startTime = System.nanoTime();
         status.setText("Location changed");
         Log.i("TEST", Double.toString(location.getLatitude()));
         Log.i("TEST", Double.toString(location.getLongitude()));
         lat.setText("Lat: " + location.getLatitude());
-        //String.format("%10f", location.getLatitude());
         lon.setText("Long: " + location.getLongitude());
+        linePts.put(location.getLatitude(), location.getLongitude());
+        //if((System.nanoTime() - startTime) > 10000){
+        if(linePts.size() > 9){
+            GPS_Display.this.killGPS();
+            GPS_Display.this.processPoints();
+        }
+        //Just show it every time there's an update, figure out why its so slow
+        TextView coordsView = (TextView) findViewById(R.id.coordsView);
+        coordsView.setText(linePts.toString());
     }
 
     @Override
@@ -73,13 +87,27 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
             return;
         }
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, this);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
             status.setText("Location updates requested");
         } else {
             status.setText("GPS_PROVIDER is not enabled!");
             return;
         }
-        Toast.makeText(this, "Location not null" , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Location not null", Toast.LENGTH_SHORT).show();
+    }
+
+    public void killGPS(){
+        if (ActivityCompat.checkSelfPermission(GPS_Display.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(GPS_Display.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        lm.removeUpdates(GPS_Display.this);
+    }
+    public void processPoints(){
+        /**
+         * Get difference between first and last points, split into x segments, compare end points with each point in array
+         */
+        TextView coordsView = (TextView) findViewById(R.id.coordsView);
+        coordsView.setText(linePts.toString());
     }
 
     @Override

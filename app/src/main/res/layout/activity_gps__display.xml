@@ -49,8 +49,7 @@
         android:text="Start Walking"
         android:layout_below="@+id/status"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="37dp">
+        android:layout_alignParentStart="true">
         <requestFocus/>
     </Button>
 
@@ -59,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop Walking"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/start"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <requestFocus/>
@@ -70,11 +69,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Main Menu"
-        android:layout_marginTop="17dp"
         android:layout_below="@+id/stop"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <requestFocus/>
     </Button>
+
+    <TextView
+        android:text="Coordinates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordsView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
