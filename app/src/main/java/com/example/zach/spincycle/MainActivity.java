@@ -44,10 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Spin_Display.class);
-                intent.putExtra(SPIN_COUNT,10);
+                intent.putExtra(SPIN_COUNT,2);
                 startActivity(intent);
 //                setBackButton();
-                playSound();
             }
         });
     }

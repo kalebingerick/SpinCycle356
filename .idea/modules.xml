@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/SpinCycle.iml" filepath="$PROJECT_DIR$/SpinCycle.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpinCycle356.iml" filepath="$PROJECT_DIR$/SpinCycle356.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

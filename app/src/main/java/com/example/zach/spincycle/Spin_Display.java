@@ -6,10 +6,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import static com.example.zach.spincycle.MainActivity.SPIN_COUNT;
 
 public class Spin_Display extends AppCompatActivity  implements SensorEventListener {
     private SensorManager mSensorManager;
@@ -19,12 +24,13 @@ public class Spin_Display extends AppCompatActivity  implements SensorEventListe
     private int totalRotation = 0;
     private int numSpins = 0;
     private int count;
+    boolean soundPlayed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        count = intent.getIntExtra(MainActivity.SPIN_COUNT,15);
+        count = intent.getIntExtra(SPIN_COUNT,15);
         setContentView(R.layout.activity_spin__display);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mOrient = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
@@ -40,7 +46,26 @@ public class Spin_Display extends AppCompatActivity  implements SensorEventListe
         int yaw = (int) event.values[0];
         TextView spin_count = (TextView) findViewById(R.id.spin_count);
         checkSpins(yaw);
-        spin_count.setText(String.valueOf(count-numSpins));
+        int final_count = count - numSpins;
+        spin_count.setText(String.valueOf(final_count));
+        synchronized (this) {
+            if (final_count == 0 && !soundPlayed) {
+                Intent intent = new Intent(Spin_Display.this, MainActivity.class);
+                startActivity(intent);
+                playSound();
+                soundPlayed = true;
+            }
+        }
+    }
+
+    public synchronized void playSound(){
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public final void checkSpins(int yaw) {
         if(firstRun) {
