@@ -15,8 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.ArrayList;
 
 import static android.location.LocationProvider.OUT_OF_SERVICE;
 import static android.location.LocationProvider.TEMPORARILY_UNAVAILABLE;
@@ -26,7 +26,7 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
     private TextView lat;
     private TextView lon;
     private TextView status;
-    private Map<Double, Double> linePts = new HashMap<Double, Double>();
+    private ArrayList<Coords> linePts = new ArrayList<>();
     long startTime = 0;
     LocationManager lm;
 
@@ -39,7 +39,7 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
         Log.i("TEST", Double.toString(location.getLongitude()));
         lat.setText("Lat: " + location.getLatitude());
         lon.setText("Long: " + location.getLongitude());
-        linePts.put(location.getLatitude(), location.getLongitude());
+        linePts.add(new Coords(location.getLatitude(), location.getLongitude()));
         //if((System.nanoTime() - startTime) > 10000){
         if(linePts.size() > 9){
             GPS_Display.this.killGPS();
@@ -173,4 +173,29 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
         });
     }
 
+    class Coords{
+        private double lat;
+        private double lon;
+
+        public Coords(double lat, double lon) {
+            this.lat = lat;
+            this.lon = lon;
+        }
+
+        public double getLat() {
+            return lat;
+        }
+
+        public double getLon() {
+            return lon;
+        }
+
+        @Override
+        public String toString() {
+            return "(" + lat +
+                    ", " + lon +
+                    ')';
+        }
+    }
 }
+
