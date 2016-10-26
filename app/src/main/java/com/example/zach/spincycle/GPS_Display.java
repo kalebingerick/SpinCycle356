@@ -160,6 +160,30 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
          Will compare each "ideal" midpoint to each actual midpoint to calculate std. dev./how much
          to subtract from starting score (100).
          */
+        calculateScore(); //this is dumb, but I'm lazy
+    }
+
+    private void calculateScore() {
+        Double pointScore = ((double)100/(double)linePts.size()); //score per point
+        ArrayList<Coords> idealPoints = getIdealCoords();
+    }
+
+    private ArrayList<Coords> getIdealCoords() {
+        double initLat = linePts.get(0).getLat();
+        double initLon = linePts.get(0).getLon();
+        double finalLat = linePts.get(linePts.size() - 1).getLat();
+        double finalLon = linePts.get(linePts.size() - 1).getLon();
+        double latDifference = (finalLat - initLat)/linePts.size();
+        double lonDifference = (finalLon - finalLat)/linePts.size();
+
+        ArrayList<Coords> idealCoords = new ArrayList<Coords>();
+        idealCoords.add(linePts.get(0));
+        for (int numPoints = 0; numPoints < linePts.size(); numPoints++) {
+            idealCoords.add(new Coords(initLat + ((latDifference)*(numPoints + 1)), initLon + ((lonDifference)*(numPoints + 1))));
+        }
+        idealCoords.add(linePts.get(linePts.size() - 1));
+
+        return idealCoords;
     }
 
     private void setMainMenuButton() {
