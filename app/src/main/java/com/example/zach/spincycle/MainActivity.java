@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setSecondPage();
+                setDifficultyPage();
             }
         });
     }
 
-    private void setSecondPage(){
+    private void setDifficultyPage(){
         setContentView(R.layout.second_page);
         Button easy = (Button) findViewById(R.id.easy_button);
         Button medium = (Button) findViewById(R.id.med_button);
