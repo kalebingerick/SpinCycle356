@@ -6,6 +6,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,14 +40,61 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuButton2(){
-        Button testButton = (Button) findViewById(R.id.test_button2);
+        Button testButton = (Button) findViewById(R.id.start_button);
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setSecondPage();
+            }
+        });
+    }
+
+    private void setSecondPage(){
+        setContentView(R.layout.second_page);
+        Button easy = (Button) findViewById(R.id.easy_button);
+        Button medium = (Button) findViewById(R.id.med_button);
+        Button hard = (Button) findViewById(R.id.hard_button);
+
+        View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // change color
+                }
+                else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    // set to normal color
+                }
+
+                return true;
+            }
+        };
+
+        easy.setOnTouchListener(onTouchListener);
+        medium.setOnTouchListener(onTouchListener);
+        hard.setOnTouchListener(onTouchListener);
+
+        easy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Spin_Display.class);
-                intent.putExtra(SPIN_COUNT,2);
+                intent.putExtra(SPIN_COUNT,5);
                 startActivity(intent);
-//                setBackButton();
+            }
+        });
+        medium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Spin_Display.class);
+                intent.putExtra(SPIN_COUNT,10);
+                startActivity(intent);
+            }
+        });
+        hard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Spin_Display.class);
+                intent.putExtra(SPIN_COUNT,20);
+                startActivity(intent);
             }
         });
     }
