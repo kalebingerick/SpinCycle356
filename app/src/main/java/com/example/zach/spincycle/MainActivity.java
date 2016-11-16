@@ -76,27 +76,27 @@ public class MainActivity extends AppCompatActivity {
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Spin_Display.class);
-                intent.putExtra(SPIN_COUNT,5);
-                startActivity(intent);
+                setOnClick(v, 5);
             }
         });
         medium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Spin_Display.class);
-                intent.putExtra(SPIN_COUNT,10);
-                startActivity(intent);
+                setOnClick(v, 10);
             }
         });
         hard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Spin_Display.class);
-                intent.putExtra(SPIN_COUNT,20);
-                startActivity(intent);
+                setOnClick(v, 20);
             }
         });
+    }
+    
+    private void setOnClick(View v, int numSpins) {
+        Intent intent = new Intent(MainActivity.this, Spin_Display.class);
+        intent.putExtra(SPIN_COUNT, numSpins);
+        startActivity(intent);
     }
 
     private void setGPSButton(){
