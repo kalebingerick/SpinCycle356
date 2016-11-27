@@ -37,13 +37,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuButton2(){
-        Button testButton = (Button) findViewById(R.id.test_button2);
-        testButton.setOnClickListener(new View.OnClickListener() {
+        Button lineButton = (Button) findViewById(R.id.lineButton);
+        lineButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.second_page);
-                setBackButton();
-                playSound();
+                Intent intent = new Intent(MainActivity.this, LineActivity.class);
+                startActivity(intent);
             }
         });
     }

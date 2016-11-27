@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,8 +34,10 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
         if(startTime == 0)
             startTime = System.nanoTime();
         status.setText("Location changed");
+        /*
         Log.i("TEST", Double.toString(location.getLatitude()));
-        Log.i("TEST", Double.toString(location.getLongitude()));
+        Log.i("TEST", Double.toString(location.getLongitude())); 
+        */
         lat.setText("Lat: " + location.getLatitude());
         lon.setText("Long: " + location.getLongitude());
         linePts.add(new Coords(location.getLatitude(), location.getLongitude()));
@@ -101,13 +102,41 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
             return;
         }
         lm.removeUpdates(GPS_Display.this);
+        status.setText("Unsubscribed from GPS updates");
     }
     public void processPoints(){
         /**
          * Get difference between first and last points, split into x segments, compare end points with each point in array
+         * Do timed, but factor in distance
          */
-        TextView coordsView = (TextView) findViewById(R.id.coordsView);
-        coordsView.setText(linePts.toString());
+        Double totalScore = 100.0;  //total score to subtract from. Probably cast as int before display
+        Double sumScore = 0.0;
+        Double pointScore = (totalScore/(double)linePts.size()); //score per point
+        ArrayList<Coords> idealPoints = getIdealCoords();
+        for (int i=0; i<linePts.size(); i++){
+            Double thisDist = distance(linePts.get(i), idealPoints.get(i));
+            Double thisPoint = thisDist > pointScore ? 0 : pointScore - thisDist;
+            sumScore += thisPoint;
+            //totalScore -= pointScore / distance(linePts.get(i), idealPoints.get(i));
+        }
+        status.setText("score is " + sumScore);
+    }
+
+    private ArrayList<Coords> getIdealCoords() {
+        double initLat = linePts.get(0).getLat();
+        double initLon = linePts.get(0).getLon();
+        double finalLat = linePts.get(linePts.size() - 1).getLat();
+        double finalLon = linePts.get(linePts.size() - 1).getLon();
+        double latDifference = (finalLat - initLat) / linePts.size();
+        double lonDifference = (finalLon - initLon) / linePts.size();
+
+        ArrayList<Coords> idealCoords = new ArrayList<Coords>();
+        idealCoords.add(linePts.get(0));
+        for (int numPoints = 0; numPoints < linePts.size(); numPoints++) {
+            idealCoords.add(new Coords(initLat + ((latDifference) * (numPoints + 1)), initLon + ((lonDifference) * (numPoints + 1))));
+        }
+        idealCoords.add(linePts.get(linePts.size() - 1));
+        return idealCoords;
     }
 
     @Override
@@ -173,6 +202,32 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
         });
     }
 
+    /*
+    * Calculate distance between two points in latitude and longitude.
+    *
+    * lat1, lon1 Start point lat2, lon2 End point
+    * @returns Distance in Meters
+    */
+    public static double distance(Coords start, Coords end){
+        double lat1 = start.getLat();
+        double lat2 = end.getLat();
+        double lon1 = start.getLon();
+        double lon2 = end.getLon();
+        final int R = 6371; // Radius of the earth
+
+        Double latDistance = Math.toRadians(lat2 - lat1);
+        Double lonDistance = Math.toRadians(lon2 - lon1);
+        Double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        Double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        distance = Math.pow(distance, 2);
+
+        return Math.sqrt(distance);
+    }
+
     class Coords{
         private double lat, lon;
         public Coords(double lat, double lon) {
@@ -184,4 +239,5 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
         @Override
         public String toString() { return "(" + lat + ", " + lon + ')'; }
     }
+
 }
