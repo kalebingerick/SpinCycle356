@@ -122,23 +122,6 @@ public class GPS_Display extends AppCompatActivity implements LocationListener {
         status.setText("score is " + sumScore);
     }
 
-    private ArrayList<Coords> getIdealCoords() {
-        double initLat = linePts.get(0).getLat();
-        double initLon = linePts.get(0).getLon();
-        double finalLat = linePts.get(linePts.size() - 1).getLat();
-        double finalLon = linePts.get(linePts.size() - 1).getLon();
-        double latDifference = (finalLat - initLat) / linePts.size();
-        double lonDifference = (finalLon - initLon) / linePts.size();
-
-        ArrayList<Coords> idealCoords = new ArrayList<Coords>();
-        idealCoords.add(linePts.get(0));
-        for (int numPoints = 0; numPoints < linePts.size(); numPoints++) {
-            idealCoords.add(new Coords(initLat + ((latDifference) * (numPoints + 1)), initLon + ((lonDifference) * (numPoints + 1))));
-        }
-        idealCoords.add(linePts.get(linePts.size() - 1));
-        return idealCoords;
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults[0] == PERMISSION_GRANTED)
