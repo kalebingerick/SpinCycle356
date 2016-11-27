@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,4 +17,40 @@
         android:layout_alignParentStart="true">
     <requestFocus/>
     </Button>
+
+    <Button
+        android:id="@+id/easy_button"
+        android:layout_height="50dp"
+        android:text="Easy"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:layout_width="300dp"
+        android:layout_below="@+id/back"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/med_button"
+        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:text="Medium"
+        android:layout_marginTop="14dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/easy_button"
+        android:layout_alignLeft="@+id/easy_button"
+        android:layout_alignStart="@+id/easy_button" />
+
+    <Button
+        android:id="@+id/hard_button"
+        android:layout_height="50dp"
+        android:text="Hard"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="14dp"
+        android:background="@color/colorPrimary"
+        android:layout_width="300dp"
+        android:layout_below="@+id/med_button"
+        android:layout_alignLeft="@+id/med_button"
+        android:layout_alignStart="@+id/med_button" />
+
 </RelativeLayout>
