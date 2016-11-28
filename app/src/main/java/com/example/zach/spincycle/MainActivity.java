@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnTouchListener onTouchListener = new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     // change color
                 }
@@ -69,14 +71,16 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        /* This is breaking things for me
         easy.setOnTouchListener(onTouchListener);
         medium.setOnTouchListener(onTouchListener);
         hard.setOnTouchListener(onTouchListener);
+        */
 
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setOnClick(v, 5);
+                setOnClick(v, 2);
             }
         });
         medium.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 setOnClick(v, 20);
             }
         });
+
     }
     
     private void setOnClick(View v, int numSpins) {

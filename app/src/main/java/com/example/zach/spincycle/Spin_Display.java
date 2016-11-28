@@ -50,7 +50,8 @@ public class Spin_Display extends AppCompatActivity  implements SensorEventListe
         spin_count.setText(String.valueOf(final_count));
         synchronized (this) {
             if (final_count == 0 && !soundPlayed) {
-                Intent intent = new Intent(Spin_Display.this, MainActivity.class);
+                //Intent intent = new Intent(Spin_Display.this, MainActivity.class);
+                Intent intent = new Intent(Spin_Display.this, LineActivity.class);
                 startActivity(intent);
                 playSound();
                 soundPlayed = true;
