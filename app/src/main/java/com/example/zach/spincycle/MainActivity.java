@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setOnClick(v, 2);
+                setOnClick(v, 5);
             }
         });
         medium.setOnClickListener(new View.OnClickListener() {
