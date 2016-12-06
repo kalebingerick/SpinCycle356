@@ -18,9 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GPS_Display" />
-        <activity android:name=".Spin_Display"></activity>
-        <activity android:name=".LineActivity"></activity>
+        <activity android:name=".GPS_Display"/>
+        <activity android:name=".Spin_Display"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
+        </activity>
+        <activity android:name=".LineActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
+        </activity>
     </application>
 
 </manifest>

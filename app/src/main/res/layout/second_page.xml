@@ -19,38 +19,42 @@
     </Button>
 
     <Button
-        android:id="@+id/easy_button"
-        android:layout_height="50dp"
-        android:text="Easy"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:layout_width="300dp"
-        android:layout_below="@+id/back"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/med_button"
-        android:layout_height="50dp"
-        android:layout_width="300dp"
         android:text="Medium"
-        android:layout_marginTop="14dp"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimary"
-        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/med_button"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/easy_button"
-        android:layout_alignLeft="@+id/easy_button"
-        android:layout_alignStart="@+id/easy_button" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/hard_button"
-        android:layout_height="50dp"
         android:text="Hard"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="14dp"
-        android:background="@color/colorPrimary"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hard_button"
         android:layout_below="@+id/med_button"
-        android:layout_alignLeft="@+id/med_button"
-        android:layout_alignStart="@+id/med_button" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp" />
+
+    <Button
+        android:text="Easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/easy_button"
+        android:layout_below="@+id/back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Select Difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignBaseline="@+id/back"
+        android:layout_alignBottom="@+id/back"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

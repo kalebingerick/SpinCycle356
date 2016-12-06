@@ -18,7 +18,8 @@ public class LineActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mOrient;
     private TextView status;
     private TextView accelText;
-    private float   mLimit = 1;
+    //Step sensitivity. this is good at 8ish for smartphones. maybe add vizio check for fun
+    private float   mLimit = 5;
     private float   mLastValues[] = new float[3*2];
     private float   mScale[] = new float[2];
     private float   mYOffset;

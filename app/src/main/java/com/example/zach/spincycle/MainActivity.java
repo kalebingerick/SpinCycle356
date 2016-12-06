@@ -23,21 +23,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuButtons() {
-        setMenuButton1();
         setMenuButton2();
-        setGPSButton();
-    }
-
-    private void setMenuButton1(){
-        Button testButton = (Button) findViewById(R.id.test_button);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.second_page);
-                setBackButton();
-                playSound();
-            }
-        });
     }
 
     private void setMenuButton2(){
@@ -102,17 +88,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, Spin_Display.class);
         intent.putExtra(SPIN_COUNT, numSpins);
         startActivity(intent);
-    }
-
-    private void setGPSButton(){
-        Button gpsButton = (Button) findViewById(R.id.gps_button);
-        gpsButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GPS_Display.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void setBackButton(){
